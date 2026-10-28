@@ -1,0 +1,369 @@
+/* styles.css */
+:root {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #263238;
+    background: #f3f6f2;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 24px 56px;
+    line-height: 1.55;
+}
+
+.page-header {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(30px, 6vw, 64px);
+    border: 1px solid #d5e5d9;
+    border-radius: 24px;
+    background:
+        radial-gradient(ellipse at 92% 18%, rgb(255 255 255 / 55%), transparent 32%),
+        linear-gradient(130deg, #e6f1e8, #dcebe0 58%, #eaf2e9);
+    box-shadow: 0 12px 32px rgb(38 50 56 / 5%);
+}
+
+.page-header h1 {
+    position: relative;
+    margin: 0;
+    color: #203b2d;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    letter-spacing: -0.045em;
+    line-height: 1.15;
+}
+
+.page-header p {
+    position: relative;
+    margin: 12px 0 0;
+    color: #60766a;
+    font-size: 1.05rem;
+}
+
+main {
+    display: grid;
+    gap: 22px;
+    margin-top: 24px;
+}
+
+main > section {
+    min-width: 0;
+    margin: 0;
+    padding: clamp(18px, 3vw, 28px);
+    border: 1px solid #e1e9e2;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 5px 18px rgb(38 50 56 / 5%);
+}
+
+main > section > h2 {
+    margin: 0 0 18px;
+    color: #203b2d;
+    font-size: 1.45rem;
+    letter-spacing: -0.025em;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    color: #40564a;
+    font-size: 0.94rem;
+    font-weight: 600;
+}
+
+input,
+select,
+textarea,
+button {
+    box-sizing: border-box;
+    max-width: 100%;
+    font: inherit;
+}
+
+input:not([type="checkbox"]),
+select,
+textarea {
+    display: block;
+    width: 100%;
+    margin-top: 7px;
+    padding: 11px 13px;
+    border: 1px solid #dce6de;
+    border-radius: 10px;
+    background: #fbfcfb;
+    color: #263a2e;
+    transition: border-color 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+}
+
+input:not([type="checkbox"]):hover,
+select:hover,
+textarea:hover {
+    border-color: #b6cbbb;
+}
+
+input:not([type="checkbox"]):focus,
+select:focus,
+textarea:focus {
+    border-color: #78a989;
+    outline: none;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgb(120 169 137 / 18%);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #94a49a;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    margin: 0 8px 0 0;
+    accent-color: #4f805f;
+    vertical-align: -3px;
+}
+
+label:has(input[type="checkbox"]) {
+    display: inline-flex;
+    align-items: center;
+    margin: 18px 22px 0 0;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+button {
+    padding: 10px 15px;
+    border: 1px solid #dce8df;
+    border-radius: 10px;
+    background: #fff;
+    color: #315a42;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 140ms ease, background-color 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+button:hover {
+    border-color: #9cbea7;
+    background: #eff6f0;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:focus-visible {
+    outline: 3px solid #78a989;
+    outline-offset: 2px;
+}
+
+#clear-filters {
+    margin: 18px 0 0;
+    background: #f6f9f6;
+}
+
+#recipe-form > button[type="submit"] {
+    margin-top: 18px;
+    border-color: #315a42;
+    background: #315a42;
+    color: #fff;
+}
+
+#recipe-form > button[type="submit"]:hover {
+    border-color: #244832;
+    background: #244832;
+}
+
+#recipe-form > button[type="button"] {
+    margin: 18px 0 0 8px;
+}
+
+#form-message {
+    min-height: 1.5em;
+    margin: 12px 0 0;
+    color: #315a42;
+    font-size: 0.93rem;
+}
+
+#results-count {
+    margin: -8px 0 18px;
+    color: #718177;
+    font-size: 0.94rem;
+}
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr));
+    align-items: start;
+    gap: 20px;
+}
+
+.recipe-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #e1e9e2;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 5px 18px rgb(38 50 56 / 6%);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.recipe-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgb(38 50 56 / 12%);
+}
+
+.recipe-image {
+    display: block;
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.recipe-content {
+    padding: 18px;
+}
+
+.recipe-card h3 {
+    margin: 0 0 8px;
+    color: #203b2d;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.recipe-meta {
+    margin: 0 0 14px;
+    color: #60766a;
+    font-size: 0.9rem;
+}
+
+.recipe-details,
+.reviews {
+    margin-top: 10px;
+    border: 1px solid #e5ece6;
+    border-radius: 11px;
+    background: #f8faf8;
+}
+
+.recipe-details summary,
+.reviews summary {
+    padding: 11px 12px;
+    color: #315a42;
+    cursor: pointer;
+    font-size: 0.93rem;
+    font-weight: 600;
+    list-style-position: inside;
+}
+
+.recipe-details[open],
+.reviews[open] {
+    padding-bottom: 12px;
+}
+
+.recipe-details[open] > :not(summary),
+.reviews[open] > :not(summary) {
+    margin-right: 12px;
+    margin-left: 12px;
+}
+
+.recipe-details p {
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+}
+
+.recipe-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.recipe-actions button {
+    flex: 1 1 auto;
+    margin: 0;
+    font-size: 0.88rem;
+    transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.recipe-actions button:focus-visible,
+.recipe-details summary:focus-visible,
+.reviews summary:focus-visible {
+    outline: 3px solid #78a989;
+    outline-offset: 2px;
+}
+
+.review {
+    padding: 10px 0;
+    border-top: 1px solid #e1e9e2;
+}
+
+.review p {
+    margin: 6px 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.review-form {
+    padding-top: 10px;
+    border-top: 1px solid #e1e9e2;
+}
+
+.review-form textarea {
+    min-height: 72px;
+}
+
+.error {
+    color: #a32626;
+}
+
+.success {
+    color: #176b43;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .recipe-card,
+    .recipe-actions button,
+    input:not([type="checkbox"]),
+    select,
+    textarea,
+    button {
+        transition: none;
+    }
+
+    .recipe-card:hover {
+        transform: none;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 16px 14px 36px;
+    }
+
+    .page-header {
+        border-radius: 18px;
+    }
+
+    main {
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    main > section {
+        border-radius: 16px;
+    }
+
+    #recipe-form > button[type="button"] {
+        margin-left: 0;
+    }
+}
