@@ -1,9 +1,19 @@
-import type { Category, Recipe, Review } from "./types.js";
-const STORAGE_KEY = "culinary-recipes";
+import { CATEGORIES, type Category, type Recipe, type Review } from "./types.js";
 
-function isCategory(value: unknown): value is Category {
-    return value === "Завтрак" || value === "Обед" ||
-        value === "Ужин" || value === "Десерт";
+export function isCategory(value: unknown): value is Category {
+    return typeof value === "string" &&
+        CATEGORIES.some((category) => category === value);
+}
+
+export function isNumberInRange(
+    value: unknown,
+    min: number,
+    max: number
+): value is number {
+    return typeof value === "number" &&
+        Number.isFinite(value) &&
+        value >= min &&
+        value <= max;
 }
 
 function isReview(value: unknown): value is Review {
@@ -22,24 +32,21 @@ function isReview(value: unknown): value is Review {
     );
 }
 
-type StoredRecipe = Omit<Recipe, "reviews"> & { reviews?: Review[] };
+type StoredRecipe = Omit<Recipe, "id" | "reviews"> & {
+    id: string | number;
+    reviews?: Review[];
+};
 
 function isRecipe(value: unknown): value is StoredRecipe {
     if (typeof value !== "object" || value === null) return false;
     const item = value as Record<string, unknown>;
     return (
-        typeof item.id === "string" &&
+        (typeof item.id === "string" || typeof item.id === "number") &&
         typeof item.title === "string" &&
         item.title.trim().length > 0 &&
         isCategory(item.category) &&
-        typeof item.servings === "number" &&
-        Number.isFinite(item.servings) &&
-        item.servings >= 1 &&
-        item.servings <= 30 &&
-        typeof item.cookingTime === "number" &&
-        Number.isFinite(item.cookingTime) &&
-        item.cookingTime >= 1 &&
-        item.cookingTime <= 600 &&
+        isNumberInRange(item.servings, 1, 30) &&
+        isNumberInRange(item.cookingTime, 1, 600) &&
         (item.imageUrl === undefined || typeof item.imageUrl === "string") &&
         Array.isArray(item.ingredients) &&
         item.ingredients.every((x: unknown) => typeof x === "string") &&
@@ -50,22 +57,21 @@ function isRecipe(value: unknown): value is StoredRecipe {
             (Array.isArray(item.reviews) && item.reviews.every(isReview)))
     );
 }
-export function loadRecipes(): Recipe[] | null {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw === null) return null;
-    try {
-        const parsed: unknown = JSON.parse(raw);
-        if (!Array.isArray(parsed) || !parsed.every(isRecipe)) {
-            return null;
-        }
-        return parsed.map((recipe): Recipe => ({
-            ...recipe,
-            reviews: recipe.reviews ?? []
-        }));
-    } catch {
-        return null;
+
+export function parseRecipe(data: unknown): Recipe {
+    if (!isRecipe(data)) {
+        throw new Error("Сервер вернул данные неожиданного формата");
     }
+    return {
+        ...data,
+        id: String(data.id),
+        reviews: data.reviews ?? []
+    };
 }
-export function saveRecipes(recipes: Recipe[]): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
+
+export function parseRecipes(data: unknown): Recipe[] {
+    if(!Array.isArray(data) || !data.every(isRecipe)){
+        throw new Error("Сервер вернул данные неожиданного формата");
+    }
+    return data.map(parseRecipe);
 }

@@ -1,4 +1,5 @@
-export type Category = "Завтрак" | "Обед" | "Ужин" | "Десерт";
+export declare const CATEGORIES: readonly ["Завтрак", "Обед", "Ужин", "Десерт"];
+export type Category = (typeof CATEGORIES)[number];
 export interface Review {
     readonly id: string;
     author: string;
@@ -26,4 +27,5 @@ export type RecipeFilter = {
     underThirtyMinutes: boolean;
     sortByTime: "none" | "asc" | "desc";
 };
+export type NewRecipe = Omit<Recipe, "id">;
 //# sourceMappingURL=types.d.ts.map

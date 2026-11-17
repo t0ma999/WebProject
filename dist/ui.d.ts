@@ -19,6 +19,8 @@ export declare const recipeTimeInput: HTMLInputElement;
 export declare const recipeImageUrlInput: HTMLInputElement;
 export declare const recipeIngredientsInput: HTMLTextAreaElement;
 export declare const recipeInstructionsInput: HTMLTextAreaElement;
+export declare const retryButton: HTMLButtonElement;
 export declare function updateCategoryCounts(recipes: Recipe[]): void;
 export declare function renderRecipes(recipes: Recipe[]): void;
+export declare function renderMessage(text: string): void;
 //# sourceMappingURL=ui.d.ts.map

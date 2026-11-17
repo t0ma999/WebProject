@@ -1,4 +1,5 @@
-import type { Category, Recipe } from "./types.js";
+import type { Recipe } from "./types.js";
+import { CATEGORIES } from "./types.js";
 import { isValidImageUrl } from "./recipes.js";
 
 function requireElement<T extends HTMLElement>(selector: string): T {
@@ -48,12 +49,13 @@ export const recipeIngredientsInput =
     requireElement<HTMLTextAreaElement>("#recipe-ingredients");
 export const recipeInstructionsInput =
     requireElement<HTMLTextAreaElement>("#recipe-instructions");
-const categories: Category[] = ["Завтрак", "Обед", "Ужин", "Десерт"];
+export const retryButton =
+    requireElement<HTMLButtonElement>("#retry-button");
 
 export function updateCategoryCounts(recipes: Recipe[]): void {
     const totalOption = categoryFilter.options[0];
     if (totalOption) totalOption.textContent = `Все категории (${recipes.length})`;
-    categories.forEach((category, index) => {
+    CATEGORIES.forEach((category, index) => {
         const option = categoryFilter.options[index + 1];
         if (option) {
             const count = recipes.filter((recipe) => recipe.category === category).length;
@@ -180,4 +182,11 @@ export function renderRecipes(recipes: Recipe[]): void {
         card.append(content);
         recipeList.append(card);
     }
+}
+
+export function renderMessage(text: string): void {
+    recipeList.innerHTML = "";
+    const p = document.createElement("p");
+    p.textContent = text;
+    recipeList.append(p);
 }

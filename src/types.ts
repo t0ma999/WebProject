@@ -1,8 +1,5 @@
-export type Category =
-    | "Завтрак"
-    | "Обед"
-    | "Ужин"
-    | "Десерт";
+export const CATEGORIES = ["Завтрак", "Обед", "Ужин", "Десерт"] as const;
+export type Category = (typeof CATEGORIES)[number];
 
 export interface Review {
     readonly id: string;
@@ -32,3 +29,4 @@ export type RecipeFilter = {
     underThirtyMinutes: boolean;
     sortByTime: "none" | "asc" | "desc";
 };
+export type NewRecipe = Omit<Recipe, "id">;

@@ -1,3 +1,4 @@
+import { CATEGORIES } from "./types.js";
 import { isValidImageUrl } from "./recipes.js";
 function requireElement(selector) {
     const element = document.querySelector(selector);
@@ -26,12 +27,12 @@ export const recipeTimeInput = requireElement("#recipe-time");
 export const recipeImageUrlInput = requireElement("#recipe-image-url");
 export const recipeIngredientsInput = requireElement("#recipe-ingredients");
 export const recipeInstructionsInput = requireElement("#recipe-instructions");
-const categories = ["Завтрак", "Обед", "Ужин", "Десерт"];
+export const retryButton = requireElement("#retry-button");
 export function updateCategoryCounts(recipes) {
     const totalOption = categoryFilter.options[0];
     if (totalOption)
         totalOption.textContent = `Все категории (${recipes.length})`;
-    categories.forEach((category, index) => {
+    CATEGORIES.forEach((category, index) => {
         const option = categoryFilter.options[index + 1];
         if (option) {
             const count = recipes.filter((recipe) => recipe.category === category).length;
@@ -156,5 +157,11 @@ export function renderRecipes(recipes) {
         card.append(content);
         recipeList.append(card);
     }
+}
+export function renderMessage(text) {
+    recipeList.innerHTML = "";
+    const p = document.createElement("p");
+    p.textContent = text;
+    recipeList.append(p);
 }
 //# sourceMappingURL=ui.js.map
